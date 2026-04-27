@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const emptyState = document.getElementById('empty-state');
     const searchInput = document.getElementById('search-input');
     const filterBtns = document.querySelectorAll('.filter-btn');
-    const seedBtn = document.getElementById('seed-btn');
     const sortSelect = document.getElementById('sort-select');
     const totalCount = document.getElementById('total-count');
 
@@ -39,43 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Seed Data Setup
-    if (seedBtn) {
-        seedBtn.addEventListener('click', async () => {
-            if(confirm("This will add all 823 colleges from the JSON database to your Firebase. This might take a minute. Proceed?")) {
-                seedBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>Seeding 823 Colleges...</span>';
-                seedBtn.disabled = true;
-                try {
-                    // Fetch the local JSON file
-                    const response = await fetch('college-data.json');
-                    const jsonData = await response.json();
-                    const collegesToSeed = jsonData.colleges;
-                    
-                    let count = 0;
-                    // Seed sequentially
-                    for (let c of collegesToSeed) {
-                        await addDoc(collection(db, "colleges"), {
-                            name: c.college_name || "Unknown College",
-                            location: c.state || "Unknown Location",
-                            type: c.course || "MBBS",
-                            createdAt: serverTimestamp()
-                        });
-                        count++;
-                        if (count % 25 === 0) {
-                            seedBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Seeded ${count}...</span>`;
-                        }
-                    }
-                    alert("All colleges seeded successfully! Refreshing...");
-                    window.location.reload();
-                } catch(e) {
-                    console.error(e);
-                    alert("Error seeding data. Check console.");
-                    seedBtn.disabled = false;
-                    seedBtn.innerHTML = '<i class="fa-solid fa-database group-hover:scale-110 transition-transform"></i> <span>Setup Initial Data</span>';
-                }
-            }
-        });
-    }
+
 
     // Real-time listener for Colleges & Reviews to compute averages dynamically
     const fetchAndRender = () => {
