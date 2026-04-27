@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Details - MedRank</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="antialiased min-h-screen bg-slate-50 flex flex-col">
+    <!-- Navbar -->
+    <nav class="glass sticky top-0 z-50 shadow-sm border-b border-slate-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-staff-snake text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-700 to-emerald-700">MedRank</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="colleges.html" class="hidden sm:block text-slate-500 hover:text-teal-600 font-medium transition-colors bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm text-sm">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                    </a>
+                    <div id="auth-container"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-5xl mx-auto px-4 py-12 w-full">
+        <!-- Loading State -->
+        <div id="loading" class="flex flex-col items-center justify-center py-20 text-teal-600">
+            <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-4"></i>
+            <p class="text-lg font-medium animate-pulse">Loading details...</p>
+        </div>
+
+        <div id="content" class="hidden fade-in">
+            <!-- College Header Card -->
+            <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200 mb-10 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-teal-50 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+                    <div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span id="c-type" class="px-4 py-1.5 bg-teal-100 text-teal-800 text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">TYPE</span>
+                        </div>
+                        <h1 id="c-name" class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-tight">College Name</h1>
+                        <p class="text-slate-500 text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-teal-500"></i> <span id="c-location">Location</span>
+                        </p>
+                    </div>
+                    
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 text-center min-w-[160px] shadow-sm">
+                        <div class="text-5xl font-extrabold text-slate-900 mb-1 flex items-center justify-center gap-2">
+                            <span id="c-rating">0.0</span> <i class="fa-solid fa-star text-yellow-400 text-3xl"></i>
+                        </div>
+                        <p class="text-slate-500 font-medium"><span id="c-reviews-count">0</span> Reviews</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PG Speciality Selector (Hidden by default) -->
+            <div id="pg-speciality-container" class="hidden bg-white rounded-3xl p-6 shadow-sm border border-slate-200 mb-10 fade-in">
+                <label class="block text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-stethoscope text-teal-500"></i> Select PG Speciality to View/Write Reviews
+                </label>
+                <select id="pg-speciality-select" class="w-full p-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium shadow-sm focus:ring-2 focus:ring-teal-500 focus:outline-none cursor-pointer">
+                    <option value="General Medicine">General Medicine</option>
+                    <option value="General Surgery">General Surgery</option>
+                    <option value="Obstetrics & Gynecology">Obstetrics & Gynecology</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Radiology">Radiology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Psychiatry">Psychiatry</option>
+                    <option value="Anesthesiology">Anesthesiology</option>
+                    <option value="Ophthalmology">Ophthalmology</option>
+                    <option value="ENT">ENT</option>
+                    <option value="Respiratory Medicine">Respiratory Medicine</option>
+                    <option value="Emergency Medicine">Emergency Medicine</option>
+                    <option value="Pathology">Pathology</option>
+                    <option value="Microbiology">Microbiology</option>
+                    <option value="Pharmacology">Pharmacology</option>
+                    <option value="Community Medicine">Community Medicine</option>
+                    <option value="Anatomy">Anatomy</option>
+                    <option value="Physiology">Physiology</option>
+                </select>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                <!-- Reviews List Column -->
+                <div class="lg:col-span-2 order-2 lg:order-1">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-slate-800">Student Reviews</h2>
+                    </div>
+                    
+                    <div id="reviews-list" class="space-y-6">
+                        <!-- Populated by JS -->
+                    </div>
+                    
+                    <div id="no-reviews" class="hidden bg-white rounded-3xl p-10 text-center border border-slate-200 border-dashed">
+                        <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300 text-3xl">
+                            <i class="fa-solid fa-comment-slash"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-700">No reviews yet</h3>
+                        <p class="text-slate-500 mt-2">Be the first to share your experience and help other medical students.</p>
+                    </div>
+                </div>
+
+                <!-- Submit Review Form Column -->
+                <div class="lg:col-span-1 order-1 lg:order-2">
+                    <div class="bg-white rounded-3xl p-6 shadow-lg shadow-slate-200/50 border border-slate-100 sticky top-28">
+                        <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-100 pb-4">
+                            <i class="fa-solid fa-pen-to-square text-teal-500"></i> Write a Review
+                        </h3>
+                        
+                        <div id="login-prompt" class="text-center py-8">
+                            <i class="fa-brands fa-google text-4xl text-slate-300 mb-4"></i>
+                            <h4 class="text-lg font-bold text-slate-700 mb-2">Login to Review</h4>
+                            <p class="text-sm text-slate-500 mb-4">To ensure authentic ratings, you must be logged in to submit a review.</p>
+                            <button id="inline-login-btn" class="bg-teal-600 hover:bg-teal-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors shadow-sm">
+                                Sign in with Google
+                            </button>
+                        </div>
+                        
+                        <form id="review-form" class="space-y-5 hidden">
+                            <!-- Ratings -->
+                            <div class="space-y-5">
+                                <div class="rating-group" data-category="teaching">
+                                    <div class="flex justify-between text-sm font-medium text-slate-700 mb-2">
+                                        <span>Teaching Quality</span> <span class="val text-teal-600 bg-teal-50 px-2 rounded">0/5</span>
+                                    </div>
+                                    <div class="flex gap-2 text-slate-200 text-2xl cursor-pointer stars">
+                                        <i class="fa-solid fa-star star-btn" data-val="1"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="2"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="3"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="4"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="rating-group" data-category="infrastructure">
+                                    <div class="flex justify-between text-sm font-medium text-slate-700 mb-2">
+                                        <span>Infrastructure</span> <span class="val text-teal-600 bg-teal-50 px-2 rounded">0/5</span>
+                                    </div>
+                                    <div class="flex gap-2 text-slate-200 text-2xl cursor-pointer stars">
+                                        <i class="fa-solid fa-star star-btn" data-val="1"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="2"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="3"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="4"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="rating-group" data-category="patientLoad">
+                                    <div class="flex justify-between text-sm font-medium text-slate-700 mb-2">
+                                        <span>Patient Load</span> <span class="val text-teal-600 bg-teal-50 px-2 rounded">0/5</span>
+                                    </div>
+                                    <div class="flex gap-2 text-slate-200 text-2xl cursor-pointer stars">
+                                        <i class="fa-solid fa-star star-btn" data-val="1"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="2"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="3"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="4"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="rating-group" data-category="hostel">
+                                    <div class="flex justify-between text-sm font-medium text-slate-700 mb-2">
+                                        <span>Hostel & Food</span> <span class="val text-teal-600 bg-teal-50 px-2 rounded">0/5</span>
+                                    </div>
+                                    <div class="flex gap-2 text-slate-200 text-2xl cursor-pointer stars">
+                                        <i class="fa-solid fa-star star-btn" data-val="1"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="2"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="3"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="4"></i>
+                                        <i class="fa-solid fa-star star-btn" data-val="5"></i>
+                                    </div>
+                                </div>
+
+                                <div class="pt-5 border-t border-slate-100 rating-group bg-slate-50 -mx-6 px-6 py-4" data-category="overallRating">
+                                    <div class="flex justify-between text-base font-bold text-slate-900 mb-3">
+                                        <span>Overall Rating</span> <span class="val text-yellow-600 bg-yellow-100 px-2 rounded">0/5</span>
+                                    </div>
+                                    <div class="flex gap-2 text-slate-200 text-3xl cursor-pointer stars justify-center">
+                                        <i class="fa-solid fa-star star-btn drop-shadow-sm" data-val="1"></i>
+                                        <i class="fa-solid fa-star star-btn drop-shadow-sm" data-val="2"></i>
+                                        <i class="fa-solid fa-star star-btn drop-shadow-sm" data-val="3"></i>
+                                        <i class="fa-solid fa-star star-btn drop-shadow-sm" data-val="4"></i>
+                                        <i class="fa-solid fa-star star-btn drop-shadow-sm" data-val="5"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comment -->
+                            <div class="pt-2">
+                                <label class="block text-sm font-semibold text-slate-700 mb-2">Detailed Review</label>
+                                <textarea id="comment" required rows="4" class="w-full rounded-xl border border-slate-200 p-4 focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none resize-none text-slate-700 placeholder-slate-400 bg-slate-50 transition-colors" placeholder="Share details about your experience..."></textarea>
+                            </div>
+
+                            <!-- Anonymous Checkbox -->
+                            <div class="flex items-center gap-2 mt-4 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                <input type="checkbox" id="anonymous-toggle" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500 cursor-pointer">
+                                <label for="anonymous-toggle" class="text-sm font-semibold text-slate-700 cursor-pointer select-none">Post this review anonymously</label>
+                            </div>
+
+                            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-teal-500/30 flex justify-center items-center gap-2 mt-4">
+                                <span>Submit Review</span> <i class="fa-solid fa-paper-plane text-sm"></i>
+                            </button>
+                            
+                            <p id="form-error" class="text-red-500 text-sm text-center hidden mt-3 bg-red-50 py-2 rounded-lg font-medium"></p>
+                            <p id="form-success" class="text-emerald-600 text-sm text-center font-bold hidden mt-3 bg-emerald-50 py-2 rounded-lg">Review submitted successfully!</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-slate-500 font-medium text-sm text-center md:text-left">
+                &copy; 2026 MedRank. A non-profit community project.
+            </div>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="contact.html" class="text-slate-500 hover:text-teal-600 transition-colors">Contact Us</a>
+                <a href="terms.html" class="text-slate-500 hover:text-teal-600 transition-colors">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="college-detail.js"></script>
+</body>
+</html>

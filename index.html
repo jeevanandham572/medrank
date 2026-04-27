@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedRank – Find the Best Medical Colleges</title>
+    <meta name="description" content="Explore and rate medical colleges and residency institutions in India.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+    <!-- Background decorations -->
+    <div class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:4rem_4rem]">
+        <div class="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_50%_200px,#ccfbf1,transparent)]"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="glass sticky top-0 z-50 shadow-sm border-b border-slate-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-staff-snake text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-700 to-emerald-700">MedRank</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <a href="colleges.html" class="hidden sm:block text-slate-500 hover:text-teal-600 font-medium transition-colors">Browse Colleges</a>
+                    <div id="auth-container"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="flex-grow flex items-center justify-center py-20 px-4">
+        <div class="text-center max-w-5xl mx-auto fade-in w-full">
+
+            
+            <h1 class="text-6xl md:text-8xl font-black text-slate-900 tracking-tight mb-6 leading-tight">
+                Find Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">Perfect</span><br> Medical Institution
+            </h1>
+            
+            <p class="text-xl text-slate-600 mb-6 max-w-2xl mx-auto leading-relaxed font-medium">
+                Make data-driven decisions for your medical career based on authentic reviews from thousands of verified students and doctors.
+            </p>
+
+            <div class="flex items-center justify-center gap-2 text-sm font-bold text-teal-800 bg-teal-50 px-4 py-2 rounded-lg max-w-fit mx-auto mb-16 shadow-sm border border-teal-100">
+                <i class="fa-solid fa-heart text-teal-500"></i> A 100% free, community-driven project
+            </div>
+            
+            <!-- Professional Navigation Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
+                <!-- MBBS Card -->
+                <a href="colleges.html?type=MBBS" class="group bg-white rounded-[2rem] p-8 border border-slate-200 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-2 hover:border-teal-500 transition-all duration-300 relative overflow-hidden flex flex-col h-full">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-teal-50 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    
+                    <div class="w-16 h-16 bg-gradient-to-br from-teal-500 to-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-teal-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    
+                    <h3 class="text-3xl font-black text-slate-900 mb-3 tracking-tight">MBBS Colleges</h3>
+                    <p class="text-slate-500 text-lg flex-grow leading-relaxed">Explore and compare undergraduate medical institutions across India based on infrastructure, teaching, and patient load.</p>
+                    
+                    <div class="mt-8 flex items-center gap-2 text-teal-600 font-bold text-lg">
+                        Explore Rankings <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+
+                <!-- Residency Card -->
+                <a href="colleges.html?type=Residency" class="group bg-slate-900 rounded-[2rem] p-8 border border-slate-800 shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:-translate-y-2 hover:border-emerald-500 transition-all duration-300 relative overflow-hidden flex flex-col h-full">
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-slate-800 to-transparent rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                    
+                    <div class="w-16 h-16 bg-slate-800 text-emerald-400 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+                    
+                    <h3 class="text-3xl font-black text-white mb-3 tracking-tight">Residency (PG)</h3>
+                    <p class="text-slate-400 text-lg flex-grow leading-relaxed">Discover the top institutions for your specific medical specialization with detailed reviews for 19 different PG branches.</p>
+                    
+                    <div class="mt-8 flex items-center gap-2 text-emerald-400 font-bold text-lg">
+                        Find Specialities <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="mt-20 pt-10 border-t border-slate-200 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div>
+                    <div class="text-3xl font-black text-slate-900">823+</div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Colleges</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-black text-slate-900">19</div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Specialities</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-black text-slate-900">100%</div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Free Access</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-black text-slate-900"><i class="fa-solid fa-shield-check text-emerald-500"></i></div>
+                    <div class="text-sm font-bold text-slate-500 uppercase tracking-wider mt-1">Verified</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-slate-500 font-medium text-sm text-center md:text-left">
+                &copy; 2026 MedRank. A non-profit community project.
+            </div>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="contact.html" class="text-slate-500 hover:text-teal-600 transition-colors">Contact Us</a>
+                <a href="terms.html" class="text-slate-500 hover:text-teal-600 transition-colors">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="auth.js"></script>
+</body>
+</html>
